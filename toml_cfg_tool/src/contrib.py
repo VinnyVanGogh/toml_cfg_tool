@@ -3,9 +3,11 @@ import re
 import subprocess
 from pathlib import Path
 
-def find_delete_line(file_path, delete_line):
+def find_delete_line(file_path, delete_line, new_text=None):
     path = Path(file_path)
     text = path.read_text()
+    if new_text:
+        text = new_text
     new_lines = [line for line in text.split("\n") if delete_line not in line]
     updated_text = "\n".join(new_lines)
     path.write_text(updated_text)
@@ -15,7 +17,6 @@ def loop_replace_text(file_path, old_text_list, new_text_list):
     text = path.read_text()
     for i in range(len(old_text_list)):
         new_text = re.sub(old_text_list[i], new_text_list[i], text)
-        print(f"After replacing '{old_text_list[i]}' with '{new_text_list[i]}':")
         print(new_text)
         text = new_text
 
@@ -26,6 +27,8 @@ def loop_replace_text(file_path, old_text_list, new_text_list):
         print("File does not exist")
         with open(file_path, 'w') as f:
             f.write(text)
+
+    return text
 
 def get_github_repo_info():
     try:
@@ -71,9 +74,9 @@ def create_contrib_file():
             touch_path.touch()
         github_dir.mkdir(exist_ok=True)
         github_file_path = github_dir / "CONTRIBUTING.md"
-        loop_replace_text(github_file_path, old_text_list, new_text_list)
-        find_delete_line(github_file_path, delete_line)
+        text = loop_replace_text(github_file_path, old_text_list, new_text_list)
+        find_delete_line(github_file_path, delete_line, text)
     else:
-        loop_replace_text(file_path, old_text_list, new_text_list)
-        find_delete_line(file_path, delete_line)
+        text = loop_replace_text(file_path, old_text_list, new_text_list)
+        find_delete_line(file_path, delete_line, text)
         print("No .github directory found at", cwd)

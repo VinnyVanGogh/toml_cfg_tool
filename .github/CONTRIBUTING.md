@@ -1,7 +1,7 @@
 ## Contributing to the project 
 
 
-Contributions are welcome! If you'd like to enhance RepoName, follow these steps:
+Contributions are welcome! If you'd like to enhance toml_cfg_tool, follow these steps:
 
 1. **Fork the Repository**
 
@@ -10,19 +10,19 @@ Click the "Fork" button at the top-right corner of the repository page to create
 **If you use GitHub CLI you can skip step 2.**
 
 ```bash
-gh repo fork GitHubUsername/RepoName
+gh repo fork VinnyVanGogh/toml_cfg_tool
 ```
 
 2. **Clone Your Fork**
 
 ```bash
-git clone https://github.com/GitHubUsername/RepoName.git
+git clone https://github.com/VinnyVanGogh/toml_cfg_tool.git
 ```
 
 3. cd into the cloned repository
 
 ```bash
-cd RepoName
+cd toml_cfg_tool
 ```
 
 3. **Create a New Branch**
@@ -53,7 +53,7 @@ Navigate to the original repository and click "Compare & pull request" to submit
 
 ### Formatting Guidelines
 
-When contributing to RepoName, please follow these guidelines:
+When contributing to toml_cfg_tool, please follow these guidelines:
 
 - **Title:** Format like "Add feature: [Feature Name]" or "Fix: [Bug Description]".
 - **Description:** Provide a detailed description of the changes made in the pull request, prefixed with the type of change (e.g., Feature, Fix, Update)
