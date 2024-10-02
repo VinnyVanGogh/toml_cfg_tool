@@ -1,7 +1,7 @@
 # ./src/bkup.py
 import os
 import shutil
-from toml_cfg_tool.src.color_codes import BOLD, CYAN, LINK, ORANGE, END
+from toml_cfg_tool.src.color_codes import BOLD, CYAN, LINK, ORANGE
 from toml_cfg_tool.src.print_colors import print_two_colors
 
 def backup_file(file_path):
@@ -14,5 +14,5 @@ def backup_file(file_path):
     try:
         shutil.copy(file_path, backup_path)
         print_two_colors(BOLD, CYAN, "Created backup for ", file_path)
-    except Exception as e:
+    except Exception:
         print_two_colors(ORANGE, LINK, "Error creating backup for ", file_path)
