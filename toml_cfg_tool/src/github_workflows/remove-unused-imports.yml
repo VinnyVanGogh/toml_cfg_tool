@@ -23,7 +23,8 @@ jobs:
       - name: Remove unused imports and capture changes
         id: autoflake
         run: |
-          autoflake --remove-all-unused-imports --in-place --recursive . > removed_imports.txt || true
+          autoflake --remove-all-unused-imports --in-place --recursive .
+          git diff > removed_imports.txt || true
           cat removed_imports.txt
 
       - name: Commit changes if unused imports are removed
