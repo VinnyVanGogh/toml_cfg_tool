@@ -1,13 +1,15 @@
 # ./toml_cfg_tool/src/updates_toml.py 
 import toml 
 from toml_cfg_tool.src.bkup import backup_file
+from urllib.parse import urlparse
 from toml_cfg_tool.src.color_codes import BOLD, CYAN, ORANGE
 from toml_cfg_tool.src.print_colors import print_two_colors
 
 
 def update_pyproject_toml(file_path, repo_url, updates, dry_run=False, backup=False):
     
-    if "github.com" in repo_url:
+    parsed_url = urlparse(repo_url)
+    if parsed_url.hostname and parsed_url.hostname.endswith("github.com"):
         config = toml.load(file_path)
         config['project']['urls']['Homepage'] = repo_url
         with open(file_path, 'w') as f:
