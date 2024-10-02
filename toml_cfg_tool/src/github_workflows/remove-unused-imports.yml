@@ -38,7 +38,7 @@ jobs:
         with:
           branch: remove-unused-imports
           commit-message: Remove unused imports
-          title: Fix: Remove unused imports
+          title: "Fix: Remove unused imports"
           body: |
             The following unused imports were removed:
 
