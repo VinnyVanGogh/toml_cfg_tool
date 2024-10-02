@@ -2,6 +2,8 @@ import os
 import re
 import subprocess
 from pathlib import Path
+from toml_cfg_tool.src.color_codes import BOLD, LINK
+from toml_cfg_tool.src.print_colors import print_two_colors
 
 def find_delete_line(file_path, delete_line, new_text=None):
     path = Path(file_path)
@@ -17,14 +19,11 @@ def loop_replace_text(file_path, old_text_list, new_text_list):
     text = path.read_text()
     for i in range(len(old_text_list)):
         new_text = re.sub(old_text_list[i], new_text_list[i], text)
-        print(new_text)
         text = new_text
 
     if os.path.exists(file_path):
-        print("File exists")
         pass
     else:
-        print("File does not exist")
         with open(file_path, 'w') as f:
             f.write(text)
 
@@ -55,10 +54,8 @@ def get_github_repo_info():
 def create_contrib_file():
     delete_line = "### Delete this line"
     src_path = Path(__file__).parent.parent
-    print(src_path)
     file_path = src_path / "src/github_workflows/CONTRIBUTING.md"
     subprocess.run(["cp", file_path, ".github/CONTRIBUTING.md"])
-    print(Path(file_path))
     repo_name, github_username = get_github_repo_info()
     if repo_name is None:
         repo_name = "RepoName"
@@ -69,9 +66,8 @@ def create_contrib_file():
     cwd = Path.cwd()
     github_dir = cwd / ".github"
     if github_dir.exists():
+        print_two_colors(BOLD, LINK, "Creating CONTRIBUTING.md in .github directory", github_dir)
         touch_path = github_dir / "CONTRIBUTING.md"
-        if not (touch_path).exists():
-            touch_path.touch()
         github_dir.mkdir(exist_ok=True)
         github_file_path = github_dir / "CONTRIBUTING.md"
         text = loop_replace_text(github_file_path, old_text_list, new_text_list)

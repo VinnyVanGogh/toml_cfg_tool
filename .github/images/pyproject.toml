@@ -3,13 +3,13 @@ requires = [ "setuptools>=61.0", "wheel",]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "rick-roller"
-version = "0.0.2"
-description = "Never gonna give you up"
+name = "your_project_name"
+version = "1.0.0"
+description = "A one line description of your project"
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.7"
 [[project.authors]]
-name = "Rick Astley"
+name = "Your Name"
 email = "your_email@example.com"
 
 [project.license]
@@ -19,7 +19,7 @@ text = "MIT"
 Homepage = "https://github.com/VinnyVanGogh/toml_cfg_tool.git"
 
 [project.scripts]
-rick-roller = "rick-roller.rick-roller:main"
+project_name = "dir_with_entry_script.entry_script_name:main"
 
 [tool.setuptools.packages.find]
 where = [ ".",]
