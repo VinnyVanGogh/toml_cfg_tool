@@ -9,7 +9,8 @@ from toml_cfg_tool.src.print_colors import print_two_colors
 def update_pyproject_toml(file_path, repo_url, updates, dry_run=False, backup=False):
     
     parsed_url = urlparse(repo_url)
-    if parsed_url.hostname and parsed_url.hostname.endswith("github.com"):
+    hostname = parsed_url.hostname
+    if hostname and (hostname == "github.com" or hostname.endswith(".github.com")):
         config = toml.load(file_path)
         config['project']['urls']['Homepage'] = repo_url
         with open(file_path, 'w') as f:
