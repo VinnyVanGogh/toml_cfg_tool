@@ -6,7 +6,9 @@ from toml_cfg_tool.src.print_colors import print_two_colors
 
 def update_setup_cfg(file_path, repo_url, updates, dry_run=False, backup=False):
     
-    if "github.com" in repo_url:
+    from urllib.parse import urlparse
+    parsed_url = urlparse(repo_url)
+    if parsed_url.hostname and parsed_url.hostname.endswith("github.com"):
         config = configparser.ConfigParser()
         config.read(file_path)
         config['metadata']['url'] = repo_url
