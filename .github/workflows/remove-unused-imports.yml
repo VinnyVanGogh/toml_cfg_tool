@@ -43,7 +43,13 @@ jobs:
           git add .
           git commit -m "Fix: Remove unused imports" || echo "No changes to commit"
 
+      - name: Check if there are changes
+        id: check_changes
+        run: |
+          git diff --exit-code || echo "There are changes"
+
       - name: Push changes and create pull request
+        if: steps.check_changes.outcome == 'failure'
         uses: peter-evans/create-pull-request@v5
         with:
           branch: remove-unused-imports
@@ -54,3 +60,4 @@ jobs:
 
             ```
             ${{ env.DIFF_CONTENT }}
+            ```
