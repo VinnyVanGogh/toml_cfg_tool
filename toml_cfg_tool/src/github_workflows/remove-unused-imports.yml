@@ -17,15 +17,13 @@ jobs:
         run: |
           pip install flake8 autoflake
 
-      - name: Run flake8 to check for unused imports
-        run: flake8 . --count --select=F401 --show-source --statistics
-
-      - name: Remove unused imports and capture changes
-        id: autoflake
+      - name: Remove unused imports with autoflake
         run: |
-          autoflake --remove-all-unused-imports --in-place --recursive .
-          git diff > removed_imports.txt || true
-          cat removed_imports.txt
+          autoflake --remove-all-unused-imports --remove-unused-variables --in-place --recursive .
+
+      - name: Capture removed imports
+        id: removed_imports
+        run: git diff --name-only --diff-filter=M && git diff > removed_imports_diff.txt
 
       - name: Commit changes if unused imports are removed
         run: |
@@ -44,5 +42,5 @@ jobs:
             The following unused imports were removed:
 
             ```
-            $(cat removed_imports.txt)
+            $(cat removed_imports_diff.txt)
             ```
