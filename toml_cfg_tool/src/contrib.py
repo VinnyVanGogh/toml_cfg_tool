@@ -67,7 +67,7 @@ def create_contrib_file():
     github_dir = cwd / ".github"
     if github_dir.exists():
         print_two_colors(BOLD, LINK, "Creating CONTRIBUTING.md in .github directory", github_dir)
-        touch_path = github_dir / "CONTRIBUTING.md"
+        github_dir / "CONTRIBUTING.md"
         github_dir.mkdir(exist_ok=True)
         github_file_path = github_dir / "CONTRIBUTING.md"
         text = loop_replace_text(github_file_path, old_text_list, new_text_list)
