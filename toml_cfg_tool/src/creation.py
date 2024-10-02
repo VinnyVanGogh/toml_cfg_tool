@@ -43,6 +43,7 @@ def create_setup_cfg_template(file_path, dry_run=False):
         print_two_colors(ORANGE, BOLD, "Failed to create setup.cfg:", e)
 
     repo_url = get_github_repo_url()
+
     parsed_url = urlparse(repo_url)
     if parsed_url.hostname and parsed_url.hostname.endswith("github.com"):
         config = configparser.ConfigParser()
