@@ -17,7 +17,6 @@
 
 - [Python](https://www.python.org/downloads/)
 
-
 ## Description
 
 A tool to create toml and cfg files for use in python projects, it can also simultaneously update aspects that are common between the two files.
