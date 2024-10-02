@@ -1,14 +1,13 @@
 # ./src/creation.py 
 import os
 import shutil
-import datetime 
 import subprocess
 import toml
 import configparser
 import glob
 from pathlib import Path
 from toml_cfg_tool.src.config import template_text 
-from toml_cfg_tool.src.color_codes import BOLD, CYAN, LINK, ORANGE, END
+from toml_cfg_tool.src.color_codes import BOLD, CYAN, LINK, ORANGE
 from toml_cfg_tool.src.print_colors import print_two_colors
 
 SETUP_CFG_TEMPLATE = template_text()['SETUP_CFG_TEMPLATE']

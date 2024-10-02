@@ -1,9 +1,8 @@
 # ./toml_cfg_tool/src/updates_toml.py 
 import toml 
 from toml_cfg_tool.src.bkup import backup_file
-from toml_cfg_tool.src.color_codes import BOLD, CYAN, LINK, ORANGE, END
+from toml_cfg_tool.src.color_codes import BOLD, CYAN, ORANGE
 from toml_cfg_tool.src.print_colors import print_two_colors
-from toml_cfg_tool.src.creation import get_github_repo_url
 
 
 def update_pyproject_toml(file_path, repo_url, updates, dry_run=False, backup=False):

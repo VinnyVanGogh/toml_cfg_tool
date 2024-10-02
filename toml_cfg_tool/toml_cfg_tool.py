@@ -1,12 +1,7 @@
 #!/usr/bin/env python3
 
 import os
-import configparser
-import toml
-import argparse
 import sys
-import shutil
-import datetime
 from toml_cfg_tool.src.cli import parse_arguments
 from toml_cfg_tool.src.bkup import backup_file
 from toml_cfg_tool.src.creation import create_setup_cfg_template, create_pyproject_toml_template, create_workflow_files, get_github_repo_url
@@ -51,7 +46,7 @@ def main():
         updates['license'] = args.license
 
     if not args.workflow_files:
-        workflow_files = False
+        pass
     else:
         create_workflow_files()
 
