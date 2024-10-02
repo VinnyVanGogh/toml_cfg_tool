@@ -42,7 +42,9 @@ def create_setup_cfg_template(file_path, dry_run=False):
         print_two_colors(ORANGE, BOLD, "Failed to create setup.cfg:", e)
 
     repo_url = get_github_repo_url()
-    if "github.com" in repo_url:
+    from urllib.parse import urlparse
+    parsed_url = urlparse(repo_url)
+    if parsed_url.hostname and parsed_url.hostname.endswith("github.com"):
         config = configparser.ConfigParser()
         config.read(file_path)
         config['metadata']['url'] = repo_url
@@ -64,7 +66,8 @@ def create_pyproject_toml_template(file_path, dry_run=False):
         print_two_colors(ORANGE, BOLD, "Failed to create pyproject.toml:", e)
    
     repo_url = get_github_repo_url()
-    if "github.com" in repo_url:
+    parsed_url = urlparse(repo_url)
+    if parsed_url.hostname and parsed_url.hostname.endswith("github.com"):
         config = toml.load(file_path)
         config['project']['urls']['Homepage'] = repo_url
         with open(file_path, 'w') as f:
