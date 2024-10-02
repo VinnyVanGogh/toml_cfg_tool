@@ -10,7 +10,7 @@ readme = "README.md"
 requires-python = ">=3.10"
 [[project.authors]]
 name = "VinnyVanGogh"
-email = "your_email@example.com"
+email = "computerscience@vinny-van-gogh.com"
 
 [project.license]
 text = "MIT"
