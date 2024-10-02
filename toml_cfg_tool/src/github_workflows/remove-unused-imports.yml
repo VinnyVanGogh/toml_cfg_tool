@@ -1,0 +1,47 @@
+name: Remove unused imports
+
+on: [push, pull_request]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: |
+          pip install flake8 autoflake
+
+      - name: Run flake8 to check for unused imports
+        run: flake8 . --count --select=F401 --show-source --statistics
+
+      - name: Remove unused imports and capture changes
+        id: autoflake
+        run: |
+          autoflake --remove-all-unused-imports --in-place --recursive . > removed_imports.txt || true
+          cat removed_imports.txt
+
+      - name: Commit changes if unused imports are removed
+        run: |
+          git config --local user.name "github-actions"
+          git config --local user.email "github-actions@github.com"
+          git add .
+          git commit -m "Fix: Remove unused imports" || echo "No changes to commit"
+
+      - name: Push changes and create pull request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          branch: remove-unused-imports
+          commit-message: Remove unused imports
+          title: Fix: Remove unused imports
+          body: |
+            The following unused imports were removed:
+
+            ```
+            $(cat removed_imports.txt)
+            ```

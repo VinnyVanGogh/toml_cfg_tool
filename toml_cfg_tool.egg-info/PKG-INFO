@@ -1,13 +1,13 @@
 Metadata-Version: 2.1
 Name: toml_cfg_tool
-Version: 0.0.1
-Summary: Update Python pyproject.toml and setup.cfg file attributes in tandem, allows creating gh workflows too
-Home-page: https://github.com/VinnyVanGogh/Python_cfg_toml_tool.git
-Author: Vince Vasile
-Author-email: Vince Vasile <your_email@example.com>
+Version: 0.0.2
+Summary: Never gonna give you up
+Home-page: https://github.com/VinnyVanGogh/toml_cfg_tool.git
+Author: VinnyVanGogh
+Author-email: VinnyVanGogh <your_email@example.com>
 License: MIT
-Project-URL: Homepage, https://github.com/VinnyVanGogh/Python_cfg_toml_tool.git
-Requires-Python: >=3.7
+Project-URL: Homepage, https://github.com/VinnyVanGogh/toml_cfg_tool.git
+Requires-Python: >=3.10
 Description-Content-Type: text/markdown
 
 # toml_cfg_tool  
@@ -19,6 +19,7 @@ Description-Content-Type: text/markdown
 - [Features](#features)
   - [Arguments](#arguments)
   - [Examples](#examples)
+    - [Screenshots](#screenshots)
 - [Installation and Setup](#installation-and-setup)
   - [Requirements.txt](#requirements.txt)
   - [Virtual Environment](#virtual-environment)
@@ -100,6 +101,24 @@ toml_cfg_tool --author "New Project Author" --backup path/to/backups.bak
 ```shell
 toml_cfg_tool --create-templates --workflow_files --name "New Project Name" --author "New Project Author" --version "1.0.0"
 ```
+
+### Screenshots
+
+- Show the current configuration (only shows the options that can be updated):
+
+![](https://github.com/VinnyVanGogh/toml_cfg_tool/blob/main/.github/images/show_example.png?raw=true)
+
+- Create template configuration files:
+
+![Create the template .toml and .cfg files](https://github.com/VinnyVanGogh/toml_cfg_tool/blob/main/.github/images/create_templates_example.png?raw=true)
+
+- Create the CONTRIBUTING.md file:
+
+![CONTRIBUTING.md](https://github.com/VinnyVanGogh/toml_cfg_tool/blob/main/.github/images/contrib_example.png?raw=true)
+
+- Update all available fields:
+
+![](https://github.com/VinnyVanGogh/toml_cfg_tool/blob/main/.github/images/all_example.png?raw=true)
 
 ## Installation and Setup
 

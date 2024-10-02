@@ -5,6 +5,7 @@ import datetime
 import subprocess
 import toml
 import configparser
+import glob
 from pathlib import Path
 from toml_cfg_tool.src.config import template_text 
 from toml_cfg_tool.src.color_codes import BOLD, CYAN, LINK, ORANGE, END
@@ -70,7 +71,6 @@ def create_pyproject_toml_template(file_path, dry_run=False):
         with open(file_path, 'w') as f:
             toml.dump(config, f)
 
-
 def create_workflow_files():
     root = Path(__file__).parent.parent
     src = root / "src/github_workflows"
@@ -78,9 +78,13 @@ def create_workflow_files():
     github = cwd / ".github"
     workflow_dest = cwd / ".github/workflows"
     script_dest = cwd / ".github/scripts"
-    workflow_files = ["check-pr-title.yml", "label-issues.yml", "python-publish.yml"]
-    script_files = ["version_checker.py"]
-        
+    workflow_files = glob.glob(f"{src}/*.yml")
+    script_files = glob.glob(f"{src}/*.sh") + glob.glob(f"{src}/*.py")
+
+    # Get the basenames of the current workflow and script files for comparison
+    current_workflow_files = [os.path.basename(f) for f in glob.glob(f"{workflow_dest}/*.yml")]
+    current_script_files = [os.path.basename(f) for f in glob.glob(f"{script_dest}/*.sh") + glob.glob(f"{script_dest}/*.py")]
+
     if not os.path.exists(github):
         print_two_colors(BOLD, LINK, "Folder not found:", github)
         return
@@ -93,20 +97,27 @@ def create_workflow_files():
         print_two_colors(BOLD, LINK, f"Creating folder:", script_dest)
         os.makedirs(script_dest)
 
-    for file in workflow_files:
-        src_file = os.path.join(src, file)
-        src_filename = os.path.basename(src_file)
-        dest_file = os.path.join(workflow_dest, file)
-        copy_dict = { "Copying": src_filename, "to": dest_file }
-        for key, value in copy_dict.items():
-            print_two_colors(BOLD, LINK, key, value)
-        shutil.copyfile(src_file, dest_file)
+    skip_counter = 0
 
+    # Copy workflow files only if they don't already exist
+    for file in workflow_files:
+        if os.path.basename(file) in current_workflow_files:
+            skip_counter += 1
+            continue
+        print_two_colors(BOLD, LINK, "Copying", file)
+        print_two_colors(BOLD, LINK, "to", workflow_dest)
+        new_file = workflow_dest / os.path.basename(file)
+        shutil.copyfile(file, new_file)
+
+    # Copy script files only if they don't already exist
     for file in script_files:
-        src_file = os.path.join(src, file)
-        src_filename = os.path.basename(src_file)
-        dest_file = os.path.join(script_dest, file)
-        copy_dict = { "Copying": src_filename, "to": dest_file }
-        for key, value in copy_dict.items():
-            print_two_colors(BOLD, LINK, key, value)
-        shutil.copyfile(src_file, dest_file)
+        if os.path.basename(file) in current_script_files:
+            skip_counter += 1
+            continue
+        print_two_colors(BOLD, LINK, "Copying", file)
+        print_two_colors(BOLD, LINK, "to", script_dest)
+        new_file = script_dest / os.path.basename(file)
+        shutil.copyfile(file, new_file)
+
+    if skip_counter == len(workflow_files) + len(script_files):
+        print_two_colors(BOLD, ORANGE, "All workflow and script files already exist.", "Skipping copy.")
