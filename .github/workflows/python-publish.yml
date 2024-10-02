@@ -3,8 +3,8 @@ name: Upload Python Package
 on:
   # Upload a PYPI_API_TOKEN to your github secrets, and edit the script at .github/scripts/version_checker.py 
   # Once you've done this, uncoment "push:" for automatic packaging when the version is changed, or workflow_dispatch to be able to manually run the workflow
-  # push:
-  # workflow_dispatch:
+  push:
+  workflow_dispatch:
 
 permissions:
   contents: read
