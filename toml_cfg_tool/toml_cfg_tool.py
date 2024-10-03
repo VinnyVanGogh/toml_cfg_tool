@@ -13,7 +13,11 @@ from toml_cfg_tool.src.contrib import create_contrib_file
 from toml_cfg_tool.src.reader import print_updateable_values 
 from pathlib import Path
 
+def clear_terminal():
+    os.system('cls' if os.name == 'nt' else 'clear')
+
 def main():
+    clear_terminal()
     args = parse_arguments()
 
     print_two_colors(BOLD, CYAN, "Welcome to the toml_cfg_tool!", "This tool is designed to help you manage your project's setup.cfg and pyproject.toml files")
