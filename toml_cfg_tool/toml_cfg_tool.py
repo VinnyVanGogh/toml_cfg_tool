@@ -69,7 +69,7 @@ def main():
                 create_pyproject_toml_template(file, dry_run=args.dry_run, update_github=args.update_github)
         
         if os.path.exists(file) and updates:
-            print_two_colors(BOLD, LINK, "\nUpdating the following file:", file)
+            print_two_colors(BOLD, LINK, "Updating the following file:", file)
             
             if file.endswith(".cfg"):
                 update_setup_cfg(file, repo_url, updates, dry_run=args.dry_run, backup=args.backup, update_github=args.update_github)
