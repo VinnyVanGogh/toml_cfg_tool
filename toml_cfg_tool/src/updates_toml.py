@@ -7,7 +7,7 @@ from toml_cfg_tool.src.print_colors import print_two_colors
 
 
 def update_pyproject_toml(file_path, repo_url, updates, dry_run=False, backup=False):
-    
+    #TODO: add a check to see if update_github=True and if so, update the homepage url in the pyproject.toml file, do the same for the cfg, currently it updates every time its ran
     parsed_url = urlparse(repo_url)
     hostname = parsed_url.hostname
     if hostname and (hostname == "github.com" or hostname.endswith(".github.com")):
