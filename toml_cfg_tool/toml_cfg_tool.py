@@ -5,7 +5,7 @@ import sys
 from toml_cfg_tool.src.cli import parse_arguments
 from toml_cfg_tool.src.bkup import backup_file
 from toml_cfg_tool.src.creation import create_setup_cfg_template, create_pyproject_toml_template, create_workflow_files, get_github_repo_url
-from toml_cfg_tool.src.color_codes import BOLD, CYAN
+from toml_cfg_tool.src.color_codes import BOLD, CYAN, LINK
 from toml_cfg_tool.src.print_colors import print_two_colors
 from toml_cfg_tool.src.updates_cfg import update_setup_cfg
 from toml_cfg_tool.src.updates_toml import update_pyproject_toml
@@ -17,7 +17,7 @@ def main():
     args = parse_arguments()
 
     repo_url = get_github_repo_url()
-    print_two_colors(BOLD, CYAN, "GitHub repository found, updating cfg and toml files to match:", repo_url)
+    print_two_colors(BOLD, LINK, "GitHub repository found, updating cfg and toml files to match:", repo_url)
     
     root_dir = Path.cwd()
     if args.show:
@@ -63,7 +63,7 @@ def main():
                 create_pyproject_toml_template(file, dry_run=args.dry_run)
         
         if os.path.exists(file) and updates:
-            print(f"--- Processing {file} ---")
+            print_two_colors(BOLD, LINK, "\nUpdating the following file:", file)
             
             if file.endswith(".cfg"):
                 update_setup_cfg(file, repo_url, updates, dry_run=args.dry_run, backup=args.backup)
