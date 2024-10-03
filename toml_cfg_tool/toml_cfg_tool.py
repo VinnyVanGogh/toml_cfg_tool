@@ -5,7 +5,7 @@ import sys
 from toml_cfg_tool.src.cli import parse_arguments
 from toml_cfg_tool.src.bkup import backup_file
 from toml_cfg_tool.src.creation import create_setup_cfg_template, create_pyproject_toml_template, create_workflow_files, get_github_repo_url
-from toml_cfg_tool.src.color_codes import BOLD, CYAN, LINK
+from toml_cfg_tool.src.color_codes import BOLD, LINK
 from toml_cfg_tool.src.print_colors import print_two_colors
 from toml_cfg_tool.src.updates_cfg import update_setup_cfg
 from toml_cfg_tool.src.updates_toml import update_pyproject_toml
