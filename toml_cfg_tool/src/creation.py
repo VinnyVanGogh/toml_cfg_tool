@@ -107,24 +107,32 @@ def create_workflow_files():
     skip_counter = 0
 
     # Copy workflow files only if they don't already exist
+    wf_file_list = []
     for file in workflow_files:
         if os.path.basename(file) in current_workflow_files:
             skip_counter += 1
             continue
-        print_two_colors(BOLD, LINK, "Copying", file)
-        print_two_colors(BOLD, LINK, "to", workflow_dest)
         new_file = workflow_dest / os.path.basename(file)
+        filename = os.path.basename(file)
+        wf_file_list.append(filename)
         shutil.copyfile(file, new_file)
 
     # Copy script files only if they don't already exist
+    script_file_list = []
     for file in script_files:
         if os.path.basename(file) in current_script_files:
             skip_counter += 1
             continue
-        print_two_colors(BOLD, LINK, "Copying", file)
-        print_two_colors(BOLD, LINK, "to", script_dest)
         new_file = script_dest / os.path.basename(file)
+        filename = os.path.basename(file)
+        script_file_list.append(filename)
         shutil.copyfile(file, new_file)
+
+    if wf_file_list:
+        print_two_colors(BOLD, LINK, "Workflow files created successfully:", wf_file_list)
+
+    if script_file_list:
+        print_two_colors(BOLD, LINK, "Script files created successfully:", script_file_list)
 
     if skip_counter == len(workflow_files) + len(script_files):
         print_two_colors(BOLD, ORANGE, "All workflow and script files already exist.", "Skipping copy.")

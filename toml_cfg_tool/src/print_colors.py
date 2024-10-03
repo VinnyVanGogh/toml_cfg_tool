@@ -1,6 +1,8 @@
 from toml_cfg_tool.src.color_codes import END
 
 def print_two_colors(color1, color2, text1, text2):
+    text1 = str(text1)
+    text2 = str(text2)
     text_one_length = len(text1)
     text_two_length = len(text2)
     dashes = "-" * text_one_length
