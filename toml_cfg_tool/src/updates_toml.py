@@ -39,10 +39,6 @@ def update_pyproject_toml(file_path, repo_url, updates, dry_run=False, backup=Fa
 
     if 'name' in updates:
         project['name'] = updates['name']
-        if 'scripts' in project:
-            script_name = updates['name'] + '.' + updates['name'] + ':main'
-            print(project['scripts'])
-            project['scripts'] = {updates['name']: script_name}
         changed = True
 
     if 'version' in updates:

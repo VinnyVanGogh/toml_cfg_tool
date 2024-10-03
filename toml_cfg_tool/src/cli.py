@@ -2,7 +2,7 @@
 import argparse
 
 def parse_arguments():
-    parser = argparse.ArgumentParser(description="Update metadata fields in setup.cfg and pyproject.toml or create template files, including GitHub Actions workflow files.")
+    parser = argparse.ArgumentParser(description="Update metadata fields in setup.cfg and pyproject.toml or create template files, including GitHub Actions workflow files...")
     
     parser.add_argument("--author", type=str, help="Update the project author.")
     parser.add_argument("--name", type=str, help="Update the project name.")

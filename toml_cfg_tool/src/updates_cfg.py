@@ -44,15 +44,6 @@ def update_setup_cfg(file_path, repo_url, updates, dry_run=False, backup=False):
     if 'license' in updates:
         metadata['License-Expression'] = updates['license']
         changed = True
-
-    if 'name' in updates:
-        if 'options.entry_points' not in config:
-            config['options.entry_points'] = {}
-            
-        options_entry_points = config['options.entry_points']
-        options_entry_points['console_scripts'] = f"{updates['name']} = dir_with_entry_script.entry_script_name:main"
-        changed = True
-        
     
     if 'options' not in config:
         config['options'] = {}
