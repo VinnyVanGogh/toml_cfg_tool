@@ -28,7 +28,7 @@ def get_github_repo_url():
     except subprocess.CalledProcessError:
         return "Not a Git repository."
 
-def create_setup_cfg_template(file_path, dry_run=False):
+def create_setup_cfg_template(file_path, dry_run=False, update_github=False):
     if os.path.exists(file_path):
         print_two_colors(BOLD, ORANGE, "setup.cfg already exists.", "Skipping template creation.")
         return
@@ -42,17 +42,19 @@ def create_setup_cfg_template(file_path, dry_run=False):
     except Exception as e:
         print_two_colors(ORANGE, BOLD, "Failed to create setup.cfg:", e)
 
-    repo_url = get_github_repo_url()
+    if update_github:
+        print_two_colors(BOLD, LINK, "Updating GitHub URL in setup.cfg.", update_github)
+        repo_url = get_github_repo_url()
 
-    parsed_url = urlparse(repo_url)
-    if parsed_url.hostname and parsed_url.hostname.endswith("github.com"):
-        config = configparser.ConfigParser()
-        config.read(file_path)
-        config['metadata']['url'] = repo_url
-        with open(file_path, 'w') as f:
-            config.write(f)
+        parsed_url = urlparse(repo_url)
+        if parsed_url.hostname and parsed_url.hostname.endswith("github.com"):
+            config = configparser.ConfigParser()
+            config.read(file_path)
+            config['metadata']['url'] = repo_url
+            with open(file_path, 'w') as f:
+                config.write(f)
 
-def create_pyproject_toml_template(file_path, dry_run=False):
+def create_pyproject_toml_template(file_path, dry_run=False, update_github=False):
     if os.path.exists(file_path):
         print_two_colors(BOLD, ORANGE, "pyproject.toml already exists.", "Skipping template creation.")
         return
@@ -66,13 +68,15 @@ def create_pyproject_toml_template(file_path, dry_run=False):
     except Exception as e:
         print_two_colors(ORANGE, BOLD, "Failed to create pyproject.toml:", e)
    
-    repo_url = get_github_repo_url()
-    parsed_url = urlparse(repo_url)
-    if parsed_url.hostname and parsed_url.hostname.endswith("github.com"):
-        config = toml.load(file_path)
-        config['project']['urls']['Homepage'] = repo_url
-        with open(file_path, 'w') as f:
-            toml.dump(config, f)
+    if update_github:
+        print_two_colors(BOLD, LINK, "Updating GitHub URL in pyproject.toml.", update_github)
+        repo_url = get_github_repo_url()
+        parsed_url = urlparse(repo_url)
+        if parsed_url.hostname and parsed_url.hostname.endswith("github.com"):
+            config = toml.load(file_path)
+            config['project']['urls']['Homepage'] = repo_url
+            with open(file_path, 'w') as f:
+                toml.dump(config, f)
 
 def create_workflow_files():
     root = Path(__file__).parent.parent

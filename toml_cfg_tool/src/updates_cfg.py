@@ -4,17 +4,17 @@ from toml_cfg_tool.src.bkup import backup_file
 from toml_cfg_tool.src.color_codes import BOLD, CYAN, ORANGE, END
 from toml_cfg_tool.src.print_colors import print_two_colors
 
-def update_setup_cfg(file_path, repo_url, updates, dry_run=False, backup=False):
+def update_setup_cfg(file_path, repo_url, updates, dry_run=False, backup=False, update_github=False):
     
-    #TODO: add support for update_github=True to update the url in setup.cfg to the github repo url currently it always updates the repo every time its ran
-    from urllib.parse import urlparse
-    parsed_url = urlparse(repo_url)
-    if parsed_url.hostname and parsed_url.hostname.endswith("github.com"):
-        config = configparser.ConfigParser()
-        config.read(file_path)
-        config['metadata']['url'] = repo_url
-        with open(file_path, 'w') as f:
-            config.write(f)
+    if update_github:
+        from urllib.parse import urlparse
+        parsed_url = urlparse(repo_url)
+        if parsed_url.hostname and parsed_url.hostname.endswith("github.com"):
+            config = configparser.ConfigParser()
+            config.read(file_path)
+            config['metadata']['url'] = repo_url
+            with open(file_path, 'w') as f:
+                config.write(f)
     
     if backup:
         backup_file(file_path)

@@ -31,7 +31,7 @@ exclude = [ "tests*", ]
 [project]
 name = "your_project_name" 
 version = "0.0.1"
-description = "A one line description of your project"
+description = "A one line description of your project."
 readme = "README.md"
 requires-python = ">=3.10"
 # dependencies = [ "", "" ]

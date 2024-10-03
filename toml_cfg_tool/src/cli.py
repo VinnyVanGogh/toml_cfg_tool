@@ -16,6 +16,7 @@ def parse_arguments():
     parser.add_argument("--backup", action="store_true", help="Backup existing configuration files before making changes.")
     parser.add_argument("--dry-run", action="store_true", help="Show changes without writing to files.")
     parser.add_argument("--show", action="store_true", help="Show the current configurations that the script can update.")
+    parser.add_argument("--update-github", action="store_true", help="Update GitHub repository settings to match the current directories .git repo.")
     
     return parser.parse_args()
 
