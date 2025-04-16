@@ -23,7 +23,6 @@ def main():
     print_two_colors(BOLD, CYAN, "Welcome to the toml_cfg_tool!", "This tool is designed to help you manage your project's setup.cfg and pyproject.toml files")
 
     if args.update_github:
-        print_two_colors(BOLD, LINK, "Updating GitHub repository with new values")
         repo_url = get_github_repo_url()
         print_two_colors(BOLD, LINK, "GitHub repository found, updating cfg and toml files to match:", repo_url)
     else:
@@ -59,6 +58,24 @@ def main():
         pass
     else:
         create_workflow_files()
+        env_file = "/Users/vincevasile/Documents/dev/python/env_vars/pypi_api.env"
+        with open(env_file, 'r') as env_file:
+            env_vars = env_file.read()
+            vars_dict = {}
+            for line in env_vars.splitlines():
+                if '=' in line:
+                    key, value = line.split('=', 1)
+                    vars_dict[key.strip()] = value.strip()
+                    
+            print_two_colors(BOLD, LINK, "Environment variables to add to github secrets:", vars_dict)
+            
+            # if theres only one key-value pair, copy the value to the clipboard
+            if len(vars_dict) == 1:
+                key, value = list(vars_dict.items())[0]
+                os.system(f'echo "{value}" | pbcopy')
+                print_two_colors(BOLD, LINK, "Environment variable copied to clipboard:", key)
+            else:
+                print_two_colors(BOLD, LINK, "Environment variables not copied to clipboard. There are more than one key-value pair.")
 
     if not updates and not args.create_templates:
         sys.exit(0)
